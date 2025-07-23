@@ -1,4 +1,4 @@
-package com.cardplatform.exepction;
+package com.nium.cardplatform.exepction;
 
 public class CardNotFoundException extends RuntimeException {
     public CardNotFoundException(String message) {
