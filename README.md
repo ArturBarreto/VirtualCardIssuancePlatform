@@ -14,51 +14,51 @@ This project implements a backend API for a virtual card issuance and spending p
 
 
 
-\- \*\*controller/\*\*  
+\- \*\*controller/\*\*
 
-&nbsp; REST endpoints. Maps HTTP requests to service calls and returns DTOs.
-
-
-
-\- \*\*service/\*\*  
-
-&nbsp; Business logic, transaction management, and concurrency control.
+  REST endpoints. Maps HTTP requests to service calls and returns DTOs.
 
 
 
-\- \*\*repository/\*\*  
+\- \*\*service/\*\*
 
-&nbsp; Spring Data JPA repositories for Card and Transaction entities.
-
-
-
-\- \*\*entity/\*\*  
-
-&nbsp; JPA entity classes: Card, Transaction.
+  Business logic, transaction management, and concurrency control.
 
 
 
-\- \*\*dto/\*\*  
+\- \*\*repository/\*\*
 
-&nbsp; Data Transfer Objects for API requests/responses.
-
-
-
-\- \*\*exception/\*\*  
-
-&nbsp; Custom exceptions and a global error handler.
+  Spring Data JPA repositories for Card and Transaction entities.
 
 
 
-\- \*\*config/\*\*  
+\- \*\*entity/\*\*
 
-&nbsp; Configuration classes (e.g., Swagger, rate limiter beans).
+  JPA entity classes: Card, Transaction.
 
 
 
-\- \*\*test/\*\*  
+\- \*\*dto/\*\*
 
-&nbsp; Unit and integration tests for controllers and services.
+  Data Transfer Objects for API requests/responses.
+
+
+
+\- \*\*exception/\*\*
+
+  Custom exceptions and a global error handler.
+
+
+
+\- \*\*config/\*\*
+
+  Configuration classes (e.g., Swagger, rate limiter beans).
+
+
+
+\- \*\*test/\*\*
+
+  Unit and integration tests for controllers and services.
 
 
 
@@ -88,7 +88,9 @@ This project implements a backend API for a virtual card issuance and spending p
 
 \- \*\*exception/GlobalExceptionHandler.java\*\* – Handles errors and HTTP codes.
 
-\- \*\*test/CardServiceTest.java\*\*, \*\*test/CardControllerTest.java\*\* – Tests for core logic and endpoints.
+\- \*\*exception/CardNotFoundException.java\*\* – Handles errors and HTTP codes.
+
+\- \*\*exception/InsufficientBalanceException.java\*\* – Handles errors and HTTP codes.
 
 
 
@@ -124,7 +126,7 @@ This project implements a backend API for a virtual card issuance and spending p
 
 \- mvn spring-boot:run
 
-or 
+or
 
 \- java -jar target/card-platform-\*.jar
 
