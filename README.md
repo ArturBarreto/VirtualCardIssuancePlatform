@@ -8,35 +8,31 @@ This project implements a backend API for a virtual card issuance and spending p
 
 - **controller/**
 
-  REST endpoints. Maps HTTP requests to service calls and returns DTOs.
+REST endpoints. Maps HTTP requests to service calls and returns DTOs.
 
 - **service/**
 
-  Business logic, transaction management, and concurrency control.
+Business logic, transaction management, and concurrency control.
 
 - **repository/**
 
-  Spring Data JPA repositories for Card and Transaction entities.
-
-- **entity/**
-
-  JPA entity classes: Card, Transaction.
+Spring Data JPA repositories for Card and Transaction entities.
 
 - **dto/**
 
-  Data Transfer Objects for API requests/responses.
+Data Transfer Objects for API requests/responses.
 
 - **exception/**
 
-  Custom exceptions and a global error handler.
+Custom exceptions and a global error handler.
 
 - **config/**
 
-  Configuration classes (e.g., Swagger, rate limiter beans).
+Configuration classes (e.g., Swagger, rate limiter beans).
 
 - **test/**
 
-  Unit and integration tests for controllers and services.
+Unit and integration tests for controllers and services.
 
 ---
 
@@ -45,10 +41,6 @@ This project implements a backend API for a virtual card issuance and spending p
 - **CardPlatformApplication.java** – Main entry point for the Spring Boot application.
   
 - **application.yml** – Configuration for database, server port, etc.
-  
-- **entity/Card.java** – Card entity (balance, status, version, etc.).
-  
-- **entity/Transaction.java** – Transaction entity for top-ups and spends.
   
 - **controller/CardController.java** – Exposes REST API endpoints for card operations.
   
