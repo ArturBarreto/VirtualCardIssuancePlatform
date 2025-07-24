@@ -63,4 +63,19 @@ public class CardController {
         List<TransactionResponse> txs = service.getTransactions(cardId, limit, offset);
         return ResponseEntity.ok(txs);
     }
+
+    // POST /cards/{id}/block
+    @PostMapping("/{id}/block")
+    public ResponseEntity<Void> blockCard(@PathVariable("id") UUID cardId) {
+        service.blockCard(cardId);
+        return ResponseEntity.noContent().build();
+    }
+
+    // POST /cards/{id}/unblock
+    @PostMapping("/{id}/unblock")
+    public ResponseEntity<Void> unblockCard(@PathVariable("id") UUID cardId) {
+        service.unblockCard(cardId);
+        return ResponseEntity.noContent().build();
+    }
+
 }
