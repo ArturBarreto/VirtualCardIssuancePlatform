@@ -144,4 +144,21 @@ public class CardService {
         resp.setCreatedAt(tx.getCreatedAt());
         return resp;
     }
+
+    @Transactional
+    public void blockCard(UUID cardId) {
+        CardRecord card = cardRepo.findById(cardId);
+        if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
+        if ("BLOCKED".equals(card.getStatus())) return; // already blocked
+        cardRepo.updateStatus(cardId, "BLOCKED");
+    }
+
+    @Transactional
+    public void unblockCard(UUID cardId) {
+        CardRecord card = cardRepo.findById(cardId);
+        if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
+        if ("ACTIVE".equals(card.getStatus())) return; // already active
+        cardRepo.updateStatus(cardId, "ACTIVE");
+    }
+
 }

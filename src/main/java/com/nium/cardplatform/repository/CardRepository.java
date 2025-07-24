@@ -48,6 +48,14 @@ public class CardRepository {
                 .execute();
     }
 
+    // Update card status (BLOCKED/ACTIVE)
+    public int updateStatus(UUID id, String status) {
+        return dsl.update(CARD)
+                .set(CARD.STATUS, status)
+                .where(CARD.ID.eq(id))
+                .execute();
+    }
+
     // List cards (for admin use)
     // public List<CardRecord> findAll() {...}
 }
