@@ -1,4 +1,4 @@
-package com.nium.cardplatform.exepction;
+package com.nium.cardplatform.exception;
 
 public class InsufficientBalanceException extends RuntimeException {
     public InsufficientBalanceException(String message) {
