@@ -112,12 +112,13 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public List<TransactionResponse> getTransactions(UUID cardId, int limit, int offset) {
-        // Optionally check if card exists
         CardRecord card = cardRepo.findById(cardId);
         if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
 
-        return txRepo.findByCardId(cardId, limit, offset)
-                .stream()
+        List<TransactionRecord> records = txRepo.findByCardId(cardId, limit, offset);
+        if (records == null) records = List.of(); // always return a list
+
+        return records.stream()
                 .map(this::mapTxToResponse)
                 .collect(Collectors.toList());
     }

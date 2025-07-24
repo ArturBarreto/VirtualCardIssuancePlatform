@@ -57,8 +57,8 @@ public class CardController {
     @GetMapping("/{id}/transactions")
     public ResponseEntity<List<TransactionResponse>> getTransactions(
             @PathVariable("id") UUID cardId,
-            @RequestParam(defaultValue = "10") int limit,
-            @RequestParam(defaultValue = "0") int offset
+            @RequestParam(name = "limit", defaultValue = "10") int limit,
+            @RequestParam(name = "offset", defaultValue = "0") int offset
     ) {
         List<TransactionResponse> txs = service.getTransactions(cardId, limit, offset);
         return ResponseEntity.ok(txs);
