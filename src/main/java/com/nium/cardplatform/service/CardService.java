@@ -80,7 +80,7 @@ public class CardService {
 
         int updated = cardRepo.updateBalanceAndVersion(cardId, newBalance, card.getVersion());
         if (updated != 1) {
-            throw new RuntimeException("Concurrent modification detected, try again.");
+            throw new ConcurrentModificationException("Concurrent modification detected, try again.");
         }
 
         TransactionRecord tx = new TransactionRecord(
@@ -105,7 +105,7 @@ public class CardService {
         BigDecimal newBalance = card.getBalance().add(req.getAmount());
         int updated = cardRepo.updateBalanceAndVersion(cardId, newBalance, card.getVersion());
         if (updated != 1) {
-            throw new RuntimeException("Concurrent modification detected, try again.");
+            throw new ConcurrentModificationException("Concurrent modification detected, try again.");
         }
 
         TransactionRecord tx = new TransactionRecord(

@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -35,6 +33,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidTransactionAmountException.class)
     public ResponseEntity<Object> handleInvalidAmount(InvalidTransactionAmountException ex) {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @ExceptionHandler(ConcurrentModificationException.class)
+    public ResponseEntity<Object> handleConcurrentModification(ConcurrentModificationException ex) {
+        return buildResponse(HttpStatus.CONFLICT, ex.getMessage());
     }
 
     // fallback for other exceptions
