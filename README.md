@@ -82,7 +82,15 @@ Unit and integration tests for controllers and services.
 
 ## API Documentation
 
-- Access at http://localhost:8080/swagger-ui.html
+Once the application is running, access the interactive Swagger UI at:
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+This documentation includes:
+- All available endpoints and their usage
+- Example requests and responses
+- Error model and error codes
+- Business rules and data constraints
 
 ---
 
