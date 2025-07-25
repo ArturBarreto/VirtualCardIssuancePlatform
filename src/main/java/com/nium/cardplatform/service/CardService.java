@@ -33,6 +33,9 @@ public class CardService {
 
     @Transactional
     public CardResponse createCard(CreateCardRequest req) {
+        if (req.getInitialBalance() == null || req.getInitialBalance().compareTo(BigDecimal.ZERO) < 0) {
+            throw new InvalidTransactionAmountException("Initial balance must be greater or equal than zero.");
+        }
         UUID cardId = UUID.randomUUID();
         CardRecord card = new CardRecord(
                 cardId,
