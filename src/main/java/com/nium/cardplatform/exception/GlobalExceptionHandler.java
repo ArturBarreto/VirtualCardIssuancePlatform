@@ -1,5 +1,6 @@
 package com.nium.cardplatform.exception;
 
+import com.nium.cardplatform.dto.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -47,11 +48,11 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<Object> buildResponse(HttpStatus status, String message) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", status.value());
-        body.put("error", status.getReasonPhrase());
-        body.put("message", message);
-        return new ResponseEntity<>(body, status);
+        ApiErrorResponse error = new ApiErrorResponse();
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus(status.value());
+        error.setError(status.getReasonPhrase());
+        error.setMessage(message);
+        return new ResponseEntity<>(error, status);
     }
 }
