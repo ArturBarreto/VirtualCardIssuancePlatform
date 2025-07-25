@@ -45,14 +45,16 @@ public class CardService {
         cardRepo.create(card);
 
         // Create initial top-up transaction
-        TransactionRecord tx = new TransactionRecord(
-                UUID.randomUUID(),
-                cardId,
-                "TOPUP",
-                req.getInitialBalance(),
-                LocalDateTime.now()
-        );
-        txRepo.create(tx);
+        if (req.getInitialBalance().compareTo(BigDecimal.ZERO) > 0) {
+            TransactionRecord tx = new TransactionRecord(
+                    UUID.randomUUID(),
+                    cardId,
+                    "TOPUP",
+                    req.getInitialBalance(),
+                    LocalDateTime.now()
+            );
+            txRepo.create(tx);
+        }
 
         return mapCardToResponse(card);
     }
@@ -62,6 +64,9 @@ public class CardService {
         CardRecord card = cardRepo.findById(cardId);
         if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
         if (!"ACTIVE".equals(card.getStatus())) throw new CardBlockedException("Card is not active: " + cardId);
+        if (req.getAmount() == null || req.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransactionAmountException("Spend amount must be greater than zero.");
+        }
 
         // Rate limiting check!
         if (!rateLimiter.allowSpend(cardId)) {
@@ -93,6 +98,9 @@ public class CardService {
         CardRecord card = cardRepo.findById(cardId);
         if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
         if (!"ACTIVE".equals(card.getStatus())) throw new CardBlockedException("Card is not active: " + cardId);
+        if (req.getAmount() == null || req.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransactionAmountException("Top-up amount must be greater than zero.");
+        }
 
         BigDecimal newBalance = card.getBalance().add(req.getAmount());
         int updated = cardRepo.updateBalanceAndVersion(cardId, newBalance, card.getVersion());
