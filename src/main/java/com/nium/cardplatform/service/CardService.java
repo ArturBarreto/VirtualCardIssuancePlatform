@@ -22,11 +22,13 @@ public class CardService {
     private final CardRepository cardRepo;
     private final TransactionRepository txRepo;
     private final DSLContext dsl;
+    private final RateLimiterService rateLimiter;
 
-    public CardService(CardRepository cardRepo, TransactionRepository txRepo, DSLContext dsl) {
+    public CardService(CardRepository cardRepo, TransactionRepository txRepo, DSLContext dsl, RateLimiterService rateLimiter) {
         this.cardRepo = cardRepo;
         this.txRepo = txRepo;
         this.dsl = dsl;
+        this.rateLimiter = rateLimiter;
     }
 
     @Transactional
@@ -60,6 +62,11 @@ public class CardService {
         CardRecord card = cardRepo.findById(cardId);
         if (card == null) throw new CardNotFoundException("Card not found: " + cardId);
         if (!"ACTIVE".equals(card.getStatus())) throw new CardBlockedException("Card is not active: " + cardId);
+
+        // Rate limiting check!
+        if (!rateLimiter.allowSpend(cardId)) {
+            throw new RateLimitExceededException("Max 5 spends per minute exceeded for card: " + cardId);
+        }
 
         BigDecimal newBalance = card.getBalance().subtract(req.getAmount());
         if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
