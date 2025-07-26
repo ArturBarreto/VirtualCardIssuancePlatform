@@ -12,6 +12,12 @@ public class SpendRequest {
     )
     private BigDecimal amount;
 
+    public SpendRequest() {} // Default constructor for deserialization
+
+    public SpendRequest(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     // Getters and setters
 
     public BigDecimal getAmount() {
