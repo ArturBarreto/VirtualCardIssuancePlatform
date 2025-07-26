@@ -3,8 +3,11 @@ package com.nium.cardplatform.exception;
 import com.nium.cardplatform.dto.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +42,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConcurrentModificationException.class)
     public ResponseEntity<Object> handleConcurrentModification(ConcurrentModificationException ex) {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        String message = "Invalid parameter: " + ex.getValue();
+        return buildResponse(HttpStatus.BAD_REQUEST, message);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleNotReadable(HttpMessageNotReadableException ex) {
+        String message = "Malformed or missing request body.";
+        return buildResponse(HttpStatus.BAD_REQUEST, message);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<Object> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
+        String message = "HTTP method not allowed.";
+        return buildResponse(HttpStatus.METHOD_NOT_ALLOWED, message);
     }
 
     // fallback for other exceptions
