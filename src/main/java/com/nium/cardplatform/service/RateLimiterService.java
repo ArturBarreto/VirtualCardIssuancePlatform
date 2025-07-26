@@ -12,9 +12,19 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @Service
 public class RateLimiterService {
     private static final int MAX_REQUESTS = 5;
-    private static final long WINDOW_MILLIS = 60 * 1000L;
+    private final long WINDOW_MILLIS;
 
     private final Map<UUID, Queue<Long>> cardSpendTimestamps = new ConcurrentHashMap<>();
+
+    // Production constructor
+    public RateLimiterService() {
+        this.WINDOW_MILLIS = 60 * 1000L;
+    }
+
+    // Test constructor
+    RateLimiterService(long windowMillis) {
+        this.WINDOW_MILLIS = windowMillis;
+    }
 
     public synchronized boolean allowSpend(UUID cardId) {
         long now = Instant.now().toEpochMilli();
