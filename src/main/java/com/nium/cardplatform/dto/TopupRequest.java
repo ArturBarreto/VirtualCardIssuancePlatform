@@ -12,6 +12,12 @@ public class TopupRequest {
     )
     private BigDecimal amount;
 
+    public TopupRequest() {} // Default constructor for deserialization
+
+    public TopupRequest(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     // Getters and setters
 
     public BigDecimal getAmount() {
