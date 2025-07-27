@@ -14,7 +14,9 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Virtual Card Issuance API")
                         .version("1.0.0")
-                        .description("REST API for virtual card creation, balance management, and secure card transactions. Includes business rules, error handling, and optimistic concurrency.")
+                        .description("A Spring Boot backend system for managing virtual cards, implementing creation, top-up, spending, blocking/unblocking, and transaction history retrieval.\n" +
+                                "\n" +
+                                "This solution uses JOOQ for database access, H2 for DB, full RESTful APIs, custom exception handling, and robust unit & integration tests.")
                         .contact(new Contact()
                                 .name("Artur Gomes Barreto")
                                 .email("artur.gomes.barreto@gmail.com")
