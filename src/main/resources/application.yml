@@ -10,7 +10,7 @@ spring:
     init:
       schema-locations: classpath:db/schema.sql
       mode: always
-
-# H2 web console for debugging
-spring.h2.console.enabled: true
-spring.h2.console.path: /h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
