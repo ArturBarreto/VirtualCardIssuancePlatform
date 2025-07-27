@@ -239,8 +239,6 @@ With more time, I would provide an infrastructure-as-code setup (e.g., AWS CDK o
 
 ## Learning Strategy
 
-- Whenever a new library or tool was required (e.g., JOOQ), I followed this approach:
-
 - Read through the official quickstarts and guides, prioritizing official documentation.
 
 - Created minimal reproducible snippets to understand configuration and query syntax.
