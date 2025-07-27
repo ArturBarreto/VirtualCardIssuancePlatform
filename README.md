@@ -167,13 +167,73 @@ virtual-card-issuance-platform/
 
 - Add security (JWT auth, user context).
 
-- Use Flyway/Liquibase for schema migration, PostgreSQL or MySQL for real data.
+- Use PostgreSQL or MySQL for real data.
 
 - API contract tests and more validation (use Spring Cloud Contract and enhance DTO validation and response structure).
 
 - Add Spring Boot Actuator, distributed tracing, and robust logging for ops visibility and monitoring.
 
 - Use JMeter, Gatling or similar to simulate real-world usage for performance/load tests.
+
+- Provide a Dockerfile for containerized local or cloud deployment (easy for reviewers and DevOps to run anywhere).
+
+- Integrate JaCoCo for code coverage reports, to demonstrate tested lines/methods/classes.
+
+- Improved Code Documentation, adding more in-line comments and JavaDoc, especially for public APIs and business logic, to make the codebase even more maintainable.
+
+- Use the latest LTS (Java 24) for enhanced performance and language features. 
+  > **Note:**  
+  > I encountered issues with Mockito/Byte Buddy support for Java 24 during local testing, so reverted to Java 21 for maximal compatibility.
+
+- Review and update dependency versions to fix vulnerabilities and deprecated warnings (e.g., switch from @MockBean to @BindTo or native test annotations in latest Spring Boot).
+
+- Deploy the project to AWS
+
+- CI/CD automation (GitHub Actions, CodePipeline), automated test deployment, and blue/green deployment support
+
+---
+
+## Example AWS Cloud Architecture
+
+With more time, I would provide an infrastructure-as-code setup (e.g., AWS CDK or Terraform) to deploy this platform to AWS using modern, scalable serverless components:
+
+- **Amazon API Gateway** for secure, scalable HTTP(S) ingress and routing.
+- **AWS Lambda** for running the Spring Boot application as serverless functions (using AWS SnapStart or Java Lambda custom runtime).
+- **Amazon RDS (Aurora/MySQL/Postgres) with RDS Proxy** for efficient, secure, and scalable database access.
+- **Amazon S3** for storing logs or exported data, if needed.
+- **Amazon CloudWatch** for monitoring, metrics, and alerting.
+- **(Optional) AWS Secrets Manager** for managing DB/API secrets.
+
+### **Proposed Serverless Architecture**
+
+```plaintext
+    [ Client Apps / Postman ]
+               |
+               v
+        +--------------+
+        |  API Gateway |
+        +--------------+
+               |
+               v
+        +-------------+
+        |   Lambda    |  (Spring Boot Java handler)
+        +-------------+
+               |
+               v
+        +------------+        +-------------+
+        |  RDS Proxy |------->|   RDS DB    |
+        +------------+        +-------------+
+               |
+       (CloudWatch Logs)
+
+```
+
+### **Benefits**
+
+- **No server management**: Scales to zero when idle; pay only for use.
+- **Efficient connection pooling**: RDS Proxy prevents DB connection exhaustion.
+- **Secure and auditable**: All access goes through managed AWS services.
+- **Production-grade**: Can add WAF, VPC, private endpoints as needed.
 
 ---
 
@@ -186,6 +246,8 @@ virtual-card-issuance-platform/
 - Created minimal reproducible snippets to understand configuration and query syntax.
 
 - Checked top-voted answers of the StackOverflow community for best practices and common pitfalls .
+
+- Used ChatGPT for quick clarifications, code patterns, troubleshooting, and brainstorming alternative approaches, while always validating results.
 
 - Integrated with the project incrementally, refactoring as new capabilities became clear with minimal code changes.
 
