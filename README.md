@@ -247,7 +247,7 @@ With more time, I would provide an infrastructure-as-code setup (e.g., AWS CDK o
 
 - Checked top-voted answers of the StackOverflow community for best practices and common pitfalls .
 
-- Used ChatGPT for quick clarifications, code patterns, troubleshooting, and brainstorming alternative approaches, while always validating results.
+- Used ChatGPT for quick clarifications, code patterns, code snippets, troubleshooting, and brainstorming alternative approaches, while always validating results.
 
 - Integrated with the project incrementally, refactoring as new capabilities became clear with minimal code changes.
 
