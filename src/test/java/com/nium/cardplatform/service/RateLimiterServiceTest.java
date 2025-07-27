@@ -1,6 +1,5 @@
 package com.nium.cardplatform.service;
 
-import com.nium.cardplatform.service.RateLimiterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
